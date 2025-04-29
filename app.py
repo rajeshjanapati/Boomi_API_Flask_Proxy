@@ -5,10 +5,10 @@ import json
 app = Flask(__name__)
 
 # Boomi API endpoint and authentication headers
-BOOMI_URL = "http://apibaseqa.easystepin.com:9091/ws/rest/Test/IOTCHAT/"
+BOOMI_URL = "http://apibaseqa.easystepin.com:9091/ws/rest/teams_webhook/Teams_Response/"
 BOOMI_HEADERS = {
     'Content-Type': 'application/json',
-    'Authorization': 'Basic VGVzdEBlYXN5c3RlcGluaXRzZXJ2aWNlc2xsYy00Wk5ZR086MmYxY2FkMjQtZDVmMi00MjY1LWI0ZGMtZjc3ZDE5ZDA2Yzkw'
+    'Authorization': 'Basic ZWFzeXN0ZXBpbml0c2VydmljZXNsbGMtNFpOWUdPOmQ4Mzg1OGUxLWFjYTktNDFiZS1iZDA5LTVmMTQ1Njg2YmIxZA=='
 }
 
 @app.route('/forward', methods=['POST'])
@@ -21,12 +21,10 @@ def forward_request():
 
         print("Incoming request data:", incoming_data)
 
-        # Prepare the payload to be sent to Boomi
-        payload = json.dumps({
-            "response": "YES"
-        })
+        # Convert incoming data to JSON string
+        payload = json.dumps(incoming_data)
 
-        # Send the request to the Boomi API
+        # Send the same payload to Boomi API
         response = requests.post(BOOMI_URL, headers=BOOMI_HEADERS, data=payload)
 
         # Get the response from Boomi
